@@ -5,7 +5,9 @@
 
 {% block content %}
 
-<h1>{{ post.title }}</h1> By: {{ post.author }}
+<h1>{{ post.title }}</h1> Por: {{ post.author }}
+
+- <a href="{% url 'update_post' post.pk %}">(Editar)</a>
 
 <br/>
 <hr>
