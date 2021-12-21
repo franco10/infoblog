@@ -5,17 +5,57 @@
 
 {% block content %}
 
-<h1>{{ post.title }}</h1> Por: {{ post.author }}
+<h1>{{ post.title }}</h1>
+Por: {{ post.author }} - {{ post.post_date }} - Categoría: {{ post.category }}
 
-- <a href="{% url 'update_post' post.pk %}">(Editar)</a>
+
+{% if user.is_authenticated %}
+{% if user.id == post.author.id %}
+
+- <a href="{% url 'update_post' post.pk %}">(Editar)</a> - 
+<a href="{% url 'delete_post' post.pk %}">(Eliminar)</a>
+
+{% endif %}
+{% endif %}
 
 <br/>
 <hr>
 <br/>
 
-{{ post.body }}
+{{ post.body|safe }}
+
+<hr>
+<h1>Comentarios</h1>
+<br/>
+
+{% if not post.comments.all %}
+
+No hay ningún comentario. <a href="{% url 'add_comment' post.pk %}">Agregá un comentario!</a>
+
+{% else %}
+
+<a href="{% url 'add_comment' post.pk %}">Agregá un comentario</a>
+<br/><br/>
+
+	{% for comment in post.comments.all %}
+		<strong>
+			{{ comment.name }} - 
+			{{ comment.date_added }}
+		</strong>
+		<br/>
+		{{ comment.body }}
+		<br/><br/>
+		
+	
+	{% endfor %}
+		<a href="{% url 'add_comment' post.pk %}">Agregá un comentario</a>
+{% endif %}
+<hr>
+<br/>
 
 
+
+<br/><br/>
 
 
 {% endblock %}

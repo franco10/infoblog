@@ -8,8 +8,20 @@
 <ul>
 {% for post in object_list %}
 <li>
-<a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> - {{ post.author }} - 
-<a href="{% url 'update_post' post.pk %}">(Editar)</a>
+<a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> - 
+
+Categoría: <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a> - {{ post.author }} - {{ post.post_date }}
+
+{% if user.is_authenticated %}
+{% if user.id == post.author.id %}
+
+- <a href="{% url 'update_post' post.pk %}">(Editar)</a> - 
+
+<a href="{% url 'delete_post' post.pk %}">(Eliminar)</a>
+
+{% endif %}
+{% endif %}
+
 <br/><br/>
 </li>
 {% endfor %}

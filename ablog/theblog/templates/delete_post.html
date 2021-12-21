@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 
-{% block title %}Editar post{% endblock %}
+{% block title %}Eliminar post{% endblock %}
 
 
 {% block content %}
@@ -10,16 +10,20 @@
 {% if user.is_authenticated %}
 {% if user.id == post.author.id %}
 
-<h1>Editar post</h1>
+<h1>Eliminar post</h1>
 
 <br/><br/>
 
+
+<h3>Eliminar: {{ post.title }}</h3>
+
+<br/>
 <div class="form-group">
 <form method="POST">
     {% csrf_token %}
-    {{ form.media }}
-    {{ form.as_p }}
-    <button class="btn btn-warning">Editar</button>
+    <strong>Desea eliminar el post?</strong>
+    <br/><br/>
+    <button class="btn btn-danger">Eliminar</button>
 </div>
 
 {% else %}
@@ -28,7 +32,6 @@
 
 {% else %}
 <h1>Acceso denegado</h1>
-
 
 {% endif %}
 
