@@ -1,16 +1,29 @@
 {% extends 'base.html' %}
+
+
+
+
 {% block content %}
 
+<a href="https://ibb.co/8gmcTxK"><img src="https://i.ibb.co/8gmcTxK/infoblog.png" alt="infoblog" border="0"></a>
 
+<br/><br/>
+<h1><u>Acerca de la página:</u></h1>
+<br/>
+<h3><i>
+INFOBLOG-17-ODS es un blog destinado a la difusión, visibilización y debate sobre iniciativas que contribuyan
+al cumplimiento de los 17 Objetivos de Desarrollo Sostenible incluidos en la Agenda 2030 de la ONU.
+</i></h3>
 
-<h1>Últimos posts:</h1>
+<br/><br/>
+<h2>Últimos posts:</h2>
 <br/>
 <ul>
 {% for post in object_list %}
 <li>
 <a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> - 
 
-Categoría: <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a> - {{ post.author }} - {{ post.post_date }}
+Categoría: <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a> - por: {{ post.author }} - {{ post.post_date }}
 
 {% if user.is_authenticated %}
 {% if user.id == post.author.id %}

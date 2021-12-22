@@ -40,6 +40,6 @@ class CommentForm(forms.ModelForm):
         fields = ('name', 'body')
         
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'value':'', 'id':'elder', 'type':'hidden'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
             }

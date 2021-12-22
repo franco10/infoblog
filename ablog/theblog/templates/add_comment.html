@@ -4,6 +4,7 @@
 
 {% block content %}
    
+{% if user.is_authenticated %}
 
 	<h1>Agregá un comentario</h1>
 	<br/><br/>
@@ -15,5 +16,17 @@
 			<button class="btn btn-secondary">Comentar</button>
 	</div>
 
+
+<script>
+var name = "{{ user.username }}";
+document.getElementById("elder").value = name;
+</script>
+
+
+{% else %}
+<h2>Para comentar debe estar logueado.</h2>
+<br/><br/>
+
+{% endif %}
 
 {% endblock %}

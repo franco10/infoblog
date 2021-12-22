@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>{% block title %}INFOBLOG 17 ODS{% endblock %}</title>
+    <title>{% block title %}INFOBLOG-17-ODS{% endblock %}</title>
   </head>
   <body>
 
@@ -17,7 +17,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home' %}">INFOBLOG 17 ODS</a>
+    <a class="navbar-brand" href="{% url 'home' %}">INFOBLOG-17-ODS</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -28,7 +28,7 @@
       {% if cat_menu %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Categorías
+            Categorías (por fecha)
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
@@ -39,10 +39,27 @@
           </ul>
         </li>
 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categorías (por comentarios)
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+          {% for item in cat_menu %}
+          <a class="dropdown-item" href="{% url 'category_2' item|slugify %}">{{ item }}</a>
+          {% endfor %}
+
+          </ul>
+        </li>
+
         {% else %}
       
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'category-list' %}">Categorías</a>
+            <a class="nav-link" href="{% url 'category-list' %}">Categorías (por fecha)</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'category-list_2' %}">Categorías (por comentarios)</a>
         </li>
 
       {% endif %}

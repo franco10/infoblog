@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Post, Category, Comment
 from .forms import PostForm, EditForm, CommentForm
 from django.urls import reverse_lazy
+from django.db.models import Count
 
 class HomeView(ListView):
     model = Post
@@ -15,16 +16,24 @@ class HomeView(ListView):
         context = super(HomeView, self).get_context_data(*args, **kwargs)
         context["cat_menu"] = cat_menu
         return context  
-    
+
 
 def CategoryListView(request):
     cat_menu_list = Category.objects.all()
     return render(request, 'category_list.html', {'cat_menu_list':cat_menu_list})
 
+def CategoryListView_2(request):
+    cat_menu_list_2 = Category.objects.all()
+    return render(request, 'category_list_2.html', {'cat_menu_list_2':cat_menu_list_2})
 
 def CategoryView(request, cats):
-    category_posts = Post.objects.filter(category=cats.replace('-', ' '))
+    category_posts = Post.objects.filter(category=cats.replace('-', ' ')).order_by('-id')
     return render(request, 'categories.html', {'cats':cats.replace('-', ' ').title(), 'category_posts':category_posts})
+
+def CategoryView_2(request, cats):
+    category_posts_2 = Post.objects.annotate(comment_count=Count('comments')).filter(comment_count__gt=-1, category=cats.replace('-', ' ')).order_by('-comment_count')
+    return render(request, 'categories_2.html', {'cats':cats.replace('-', ' ').title(), 'category_posts_2':category_posts_2})
+
 
 
 class ArticleDetailView(DetailView):

@@ -2,9 +2,8 @@
 {% block content %}
 
 
-{% if category_posts %}  
+{% if category_posts_2 %}  
 
-<br/><br/>
 {% if cats == 'Pobreza' %}
 <h1>Categoría: Fin de la pobreza</h1>
 {% endif %}
@@ -77,12 +76,13 @@
 <h1>Categoría: General</h1>
 {% endif %}
 
-<u>Filtro activado: por fecha</u>
+
+<u>Filtro activado: por número de comentarios</u>
 
 
 <br/><br/>
 <ul>
-{% for post in category_posts %}
+{% for post in category_posts_2 %}
 
 <li>
     <a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> - {{ post.author }} - {{ post.post_date }}
